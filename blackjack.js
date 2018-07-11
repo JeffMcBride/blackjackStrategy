@@ -4,9 +4,10 @@ var myCards = [];
 var dealer = ""
 
 function playBJ() {
+	var deck = $("input[type='radio'][name='deck']:checked").val();
 	myCards = [];
 	dealer = ""
-		document.body.appendChild(br());
+	document.body.appendChild(br());
 	dealer = promptMsg("", "Enter the dealer's card", errorMsg);
 	document.body.append("Dealer's card: " + dealer);
 	document.body.appendChild(br());
@@ -72,7 +73,9 @@ function suggestAction(cards, dealer, ace) {
     }
 	if(sum > 21){
 		if (ace == true){
-			suggestAction(myCards, dealer, true)
+			suggestAction(myCards, dealer, true);
+			return;
+			
 		}
 		else{
 			alert("Sorry, you busted!");
@@ -82,7 +85,7 @@ function suggestAction(cards, dealer, ace) {
     //Two of the same cards
     if (cards[0] == cards[1] && cards.length == 2) {
         switch (true) {
-            case "A":
+            case cards[0] == "A":
                 splitStr = "AKQJ2345678910";
                 break;
             case (cards[0] == "2"):
@@ -110,7 +113,7 @@ function suggestAction(cards, dealer, ace) {
                 splitStr = "2345689";
                 standStr = "710A";
                 break;
-            case "10":
+            case "KQJ10".includes(cards[0]):
                 standStr = "AKQJ2345678910"
                 break;
         }
@@ -190,6 +193,7 @@ function suggestAction(cards, dealer, ace) {
 		document.body.append("Card #" + myCards.length + ": " + nextCard);
 		document.body.appendChild(br());
 		suggestAction(myCards, dealer, false)	
+		return;
     }
 }
 
